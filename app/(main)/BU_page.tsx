@@ -127,7 +127,7 @@ const Dashboard = () => {
     return (
         <div className="grid">
             {/*Quarter cards*/}
-            {/*<div className="col-12 lg:col-6 xl:col-3">
+            <div className="col-12 lg:col-6 xl:col-3">
                 <div className="card mb-0">
                     <div className="flex justify-content-between mb-3">
                         <div>
@@ -186,10 +186,10 @@ const Dashboard = () => {
                     <span className="text-green-500 font-medium">85 </span>
                     <span className="text-500">responded</span>
                 </div>
-            </div>*/}
+            </div>
 
             {/* Half cards */}
-            {/*<div className="col-12 xl:col-6">
+            <div className="col-12 xl:col-6">
                 <div className="card">
                     <h5>Recent Sales</h5>
                     <DataTable value={products} rows={5} paginator responsiveLayout="scroll">
@@ -297,17 +297,17 @@ const Dashboard = () => {
                         </li>
                     </ul>
                 </div>
-            </div>*/}
+            </div>
 
             <div className="col-12 xl:col-6">
                 {/* chart */}
-                {/*<div className="card">
+                <div className="card">
                     <h5>Sales Overview</h5>
                     <Chart type="line" data={lineData} options={lineOptions} />
-                </div>*/}
+                </div>
 
                 {/*NOTFICATIONS */}
-                {/*
+
                 <div className="card">
                     <div className="flex align-items-center justify-content-between mb-4">
                         <h5>Notifications</h5>
@@ -372,7 +372,7 @@ const Dashboard = () => {
                             </span>
                         </li>
                     </ul>
-                </div>*/}
+                </div>
 
                 {/*<div
                     className="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"

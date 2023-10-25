@@ -76,7 +76,7 @@ export interface MenuProps {
 }
 
 export interface MenuModel {
-    label: string;
+    label?: string;
     icon?: string;
     items?: MenuModel[];
     to?: string;

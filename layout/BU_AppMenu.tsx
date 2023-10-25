@@ -12,10 +12,10 @@ const AppMenu = () => {
 
     const model: AppMenuItem[] = [
         {
-            // label: 'Home',
+            label: 'Home',
             items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
-        }
-        /*{
+        },
+        {
             label: 'UI Components',
             items: [
                 { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', to: '/uikit/formlayout' },
@@ -162,19 +162,19 @@ const AppMenu = () => {
                     target: '_blank'
                 }
             ]
-        }*/
+        }
     ];
 
     return (
         <MenuProvider>
             <ul className="layout-menu">
                 {model.map((item, i) => {
-                    return !item?.seperator ? <AppMenuitem item={item} root={true} index={i} key={i} /> : <li className="menu-separator"></li>;
+                    return !item?.seperator ? <AppMenuitem item={item} root={true} index={i} key={item.label} /> : <li className="menu-separator"></li>;
                 })}
 
-                {/*<Link href="https://blocks.primereact.org" target="_blank" style={{ cursor: 'pointer' }}>
+                <Link href="https://blocks.primereact.org" target="_blank" style={{ cursor: 'pointer' }}>
                     <img alt="Prime Blocks" className="w-full mt-3" src={`/layout/images/banner-primeblocks${layoutConfig.colorScheme === 'light' ? '' : '-dark'}.png`} />
-                </Link>*/}
+                </Link>
             </ul>
         </MenuProvider>
     );
