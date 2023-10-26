@@ -1,13 +1,14 @@
+// @ts-nocheck
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api'
 import { Skeleton } from 'primereact/skeleton'
 import mapStyles from '@/lib/maps/styles.json'
-import MapMarker from '@/components/MapMarker'
+// import MapMarker from '@/components/MapMarker'
 import { useEffect } from 'react'
 
 interface Props {
-    gMapsApiStatus: bool
-    mapOptions: object
-    markers: array
+    gMapsApiStatus: boolean
+    mapOptions: any
+    markers: any
 }
 
 const containerStyle = {
@@ -17,19 +18,6 @@ const containerStyle = {
 
 const Map = ({ gMapsApiStatus, mapOptions, markers }: Props) => {
     mapOptions.styles = mapStyles
-
-    // const { isLoaded } = useJsApiLoader({
-    //     id: 'google-map-script',
-    //     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    // })
-
-    const onLoad = marker => {
-        console.log('marker: ', marker)
-    }
-
-    // useEffect(() => {
-    //     console.log(isLoaded)
-    // }, [isLoaded])
 
     return (
         <>

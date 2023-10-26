@@ -26,7 +26,7 @@ interface IUseApi {
 // }
 
 export const useApi = ({ endpoint }: IUseApi) => {
-    const { data, error, isLoading, mutate } = useSWR<any>(
+    const { data, isLoading, mutate } = useSWR<any>(
         process.env.NEXT_PUBLIC_BACKEND_URL + '/api/' + endpoint,
         () =>
             axios
@@ -42,7 +42,6 @@ export const useApi = ({ endpoint }: IUseApi) => {
 
     return {
         data,
-        isError: error,
         isLoading,
     }
 }

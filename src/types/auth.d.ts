@@ -15,6 +15,8 @@ export interface IApiRequest {
 export interface User {
     id?: number
     name?: string
+    firstname?: string
+    lastname?: string
     email?: string
     email_verified_at?: string
     must_verify_email?: boolean // this is custom attribute

@@ -22,7 +22,8 @@ import { ProgressSpinner } from 'primereact/progressspinner'
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
 const FleetManager = () => {
-    let emptySensor: Demo.Sensor = {
+    // let emptySensor = {
+    let emptySensor = {
         id: '',
         name: '',
         image: '',
@@ -38,13 +39,14 @@ const FleetManager = () => {
     const [sensorDialog, setSensorDialog] = useState(false)
     const [deleteSensorDialog, setDeleteSensorDialog] = useState(false)
     const [deleteSensorsDialog, setDeleteSensorsDialog] = useState(false)
-    const [sensor, setSensor] = useState<Demo.Sensor>(emptySensor)
+    const [sensor, setSensor] = useState(emptySensor)
+    // const [sensor, setSensor] = useState<Demo.Sensor>(emptySensor)
     const [selectedSensors, setSelectedSensors] = useState(null)
     const [submitted, setSubmitted] = useState(false)
     const [globalFilter, setGlobalFilter] = useState('')
     const toast = useRef<Toast>(null)
     const dt = useRef<DataTable<any>>(null)
-    const { data, error, isLoading } = useApi({ endpoint: 'fleet' })
+    const { data, isLoading } = useApi({ endpoint: 'fleet' })
 
     useEffect(() => {
         // FleetService.getFleet().then(data => console.log(data))
@@ -111,12 +113,12 @@ const FleetManager = () => {
         }
     }
 
-    const editSensor = (sensor: Demo.Sensor) => {
+    const editSensor = (sensor: any) => {
         setSensor({ ...sensor })
         setSensorDialog(true)
     }
 
-    const confirmDeleteSensor = (sensor: Demo.Sensor) => {
+    const confirmDeleteSensor = (sensor: any) => {
         setSensor(sensor)
         setDeleteSensorDialog(true)
     }
@@ -184,7 +186,7 @@ const FleetManager = () => {
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: string) => {
         const val = (e.target && e.target.value) || ''
-        let _sensor = { ...sensor }
+        let _sensor: any = { ...sensor }
         _sensor[`${name}`] = val
 
         setSensor(_sensor)
@@ -192,7 +194,7 @@ const FleetManager = () => {
 
     const onInputNumberChange = (e: InputNumberValueChangeEvent, name: string) => {
         const val = e.value || 0
-        let _sensor = { ...sensor }
+        let _sensor: any = { ...sensor }
         _sensor[`${name}`] = val
 
         setSensor(_sensor)
@@ -247,7 +249,7 @@ const FleetManager = () => {
         )
     }
 
-    const codeBodyTemplate = (rowData: Demo.Sensor) => {
+    const codeBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Code</span>
@@ -256,7 +258,7 @@ const FleetManager = () => {
         )
     }
 
-    const nameBodyTemplate = (rowData: Demo.Sensor) => {
+    const nameBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Name</span>
@@ -265,7 +267,7 @@ const FleetManager = () => {
         )
     }
 
-    const imageBodyTemplate = (rowData: Demo.Sensor) => {
+    const imageBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Image</span>
@@ -279,7 +281,7 @@ const FleetManager = () => {
         )
     }
 
-    const priceBodyTemplate = (rowData: Demo.Sensor) => {
+    const priceBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Price</span>
@@ -288,7 +290,7 @@ const FleetManager = () => {
         )
     }
 
-    const categoryBodyTemplate = (rowData: Demo.Sensor) => {
+    const categoryBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Category</span>
@@ -297,7 +299,7 @@ const FleetManager = () => {
         )
     }
 
-    const ratingBodyTemplate = (rowData: Demo.Sensor) => {
+    const ratingBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Reviews</span>
@@ -310,7 +312,7 @@ const FleetManager = () => {
         )
     }
 
-    const statusBodyTemplate = (rowData: Demo.Sensor) => {
+    const statusBodyTemplate = (rowData: any) => {
         return (
             <>
                 <span className="p-column-title">Status</span>
@@ -319,7 +321,7 @@ const FleetManager = () => {
         )
     }
 
-    const actionBodyTemplate = (rowData: Demo.Sensor) => {
+    const actionBodyTemplate = (rowData: any) => {
         return (
             <>
                 <Button

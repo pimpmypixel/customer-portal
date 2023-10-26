@@ -7,6 +7,7 @@ import { AppTopbarRef } from '../types/types'
 import { Menu } from 'primereact/menu'
 import { LayoutContext } from './context/layoutcontext'
 import { useAuth } from '@/hooks/useAuth'
+import { User } from '../types/types'
 // import { Dropdown } from 'primereact/dropdown'
 // import './topmenu.css'
 // import { Button } from 'primereact/button'
@@ -28,6 +29,7 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     useEffect(() => {
         if (user !== undefined) {
             setName(user.firstname + ' ' + user.lastname)
+            // @ts-ignore
             setEmail(user.email)
         }
     }, [user])

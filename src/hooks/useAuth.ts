@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import axios, { csrf } from '@/lib/axios'
 import { SetStateAction, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { IUseAuth, User } from '@/types/types'
 /*
 declare type AuthMiddleware = 'auth' | 'guest'
 
@@ -135,7 +136,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: IUseAuth) => {
             router.push(redirectIfAuthenticated)
         }
         if (middleware === 'auth' && error) logout()
-    }, [user, error])
+    }, [user, error, logout, redirectIfAuthenticated, middleware, router])
 
     return {
         user,

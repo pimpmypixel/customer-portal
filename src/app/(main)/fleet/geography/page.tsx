@@ -9,7 +9,7 @@ import { useExternalScript } from '@/hooks/useExternalScript'
 import markers from '@/lib/maps/markers'
 
 const MapPage = () => {
-    const key: string = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+    const key: string | undefined = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
     const GMapsApiStatus: IGMapsApiStatus = useExternalScript(`https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=Function.prototype`)
 
     const mapOptions: any = {

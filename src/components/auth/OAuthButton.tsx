@@ -6,13 +6,18 @@ import microsoftIcon from '../../../public/layout/images/svg/microsoft.svg'
 import linkedinIcon from '../../../public/layout/images/svg/linkedin.svg'
 import { Button } from 'primereact/button'
 
+// @ts-ignore
 export default function OAuthButton({ media, label }) {
-    const icons: any = {
+    const icons: object = {
         google: googleIcon,
         azure: microsoftIcon,
         linkedin: linkedinIcon,
     }
 
+    // @ts-ignore
+    const src = icons[media]
+
+    // @ts-ignore
     return (
         <div className="flex items-center justify-center w-full mb-4 last:mb-0">
             <Button
@@ -20,7 +25,13 @@ export default function OAuthButton({ media, label }) {
                     window.location.href = 'http://localhost/auth/' + media
                 }}
                 className="bg-white hover:bg-gray-200 border-bluegray-200 text-gray-600 w-full">
-                <Image src={icons[media]} height={32} width={32} alt={label} className="mr-3" />
+                <Image
+                    src={src}
+                    height={32}
+                    width={32}
+                    alt={label}
+                    className="mr-3"
+                />
                 Log in with {media}
             </Button>
         </div>
