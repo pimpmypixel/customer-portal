@@ -1,0 +1,90 @@
+[
+    {
+        "type": "dropdown",
+        "arrowIcon": true,
+        "inline": true,
+        "label": "Fleet",
+        "items": [
+            {
+                "isHeader": true,
+                "text": "Manage Fleet",
+                "path": "fleet"
+            },
+            {
+                "text": "Wizard",
+                "path": "wizard"
+            },
+            {
+                "text": "Order sensors",
+                "path": "fleet/order"
+            }
+        ]
+    },
+    {
+        "type": "dropdown",
+        "arrowIcon": true,
+        "inline": true,
+        "label": "Sessions",
+        "items": [
+            {
+                "isHeader": true,
+                "text": "Manage Sessions",
+                "path": "sessions"
+            },
+            {
+                "text": "Launch",
+                "path": "sessions/new"
+            }
+        ]
+    },
+    {
+        "type": "dropdown",
+        "arrowIcon": true,
+        "inline": true,
+        "label": "Reporting",
+        "items": [
+            {
+                "isHeader": true,
+                "text": "Install",
+                "path": "reporting"
+            },
+            {
+                "isHeader": true,
+                "text": "Data export",
+                "path": "reporting/export"
+            },
+            {
+                "text": "Benchmark",
+                "path": "reporting/benchmark"
+            }
+        ]
+    },
+    {
+        "type": "dropdown",
+        "arrowIcon": true,
+        "inline": true,
+        "label": "Support",
+        "items": [
+            {
+                "isHeader": false,
+                "text": "FAQ",
+                "path": "support/faq"
+            },
+            {
+                "isHeader": false,
+                "text": "Manuals",
+                "path": "support/manuals"
+            },
+            {
+                "isHeader": false,
+                "text": "Contact",
+                "path": "contact"
+            },
+            {
+                "isHeader": false,
+                "text": "Feedback",
+                "path": "support/feedback"
+            }
+        ]
+    }
+]

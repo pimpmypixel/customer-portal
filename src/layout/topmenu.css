@@ -1,0 +1,13 @@
+.topmenu-dropdown.p-dropdown {
+}
+
+.topmenu-dropdown.p-dropdown .p-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: unset;
+    flex-shrink: 0;
+}
+
+.topmenu-dropdown .p-dropdown-trigger .p-icon {
+    /*display: none;*/
+}
