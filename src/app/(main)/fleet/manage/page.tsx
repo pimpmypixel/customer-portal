@@ -1,24 +1,24 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import { Button } from 'primereact/button'
-import { Column } from 'primereact/column'
-import { DataTable } from 'primereact/datatable'
-import { Dialog } from 'primereact/dialog'
-import { FileUpload } from 'primereact/fileupload'
-import { InputNumber, InputNumberValueChangeEvent } from 'primereact/inputnumber'
-import { InputText } from 'primereact/inputtext'
-import { InputTextarea } from 'primereact/inputtextarea'
-import { RadioButton, RadioButtonChangeEvent } from 'primereact/radiobutton'
-import { Rating } from 'primereact/rating'
-import { Toast } from 'primereact/toast'
-import { Toolbar } from 'primereact/toolbar'
-import { classNames } from 'primereact/utils'
-import React, { useEffect, useRef, useState } from 'react'
+import {Button} from 'primereact/button'
+import {Column} from 'primereact/column'
+import {DataTable} from 'primereact/datatable'
+import {Dialog} from 'primereact/dialog'
+import {FileUpload} from 'primereact/fileupload'
+import {InputNumber, InputNumberValueChangeEvent} from 'primereact/inputnumber'
+import {InputText} from 'primereact/inputtext'
+import {InputTextarea} from 'primereact/inputtextarea'
+import {RadioButton, RadioButtonChangeEvent} from 'primereact/radiobutton'
+import {Rating} from 'primereact/rating'
+import {Toast} from 'primereact/toast'
+import {Toolbar} from 'primereact/toolbar'
+import {classNames} from 'primereact/utils'
+import React, {useEffect, useRef, useState} from 'react'
 // import { FleetService } from '@/demo/service/FleetService'
-import { Demo } from '@/types/demo'
-import { formatCurrency } from '@/lib/utils'
-import { useApi } from '@/hooks/useApi'
-import { ProgressSpinner } from 'primereact/progressspinner'
+import {Demo} from '@/types/demo'
+import {formatCurrency} from '@/lib/utils'
+import {useApi} from '@/hooks/useApi'
+import {ProgressSpinner} from 'primereact/progressspinner'
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
 const FleetManager = () => {
@@ -26,13 +26,12 @@ const FleetManager = () => {
     let emptySensor = {
         id: '',
         name: '',
-        image: '',
-        description: '',
-        category: '',
-        price: 0,
-        quantity: 0,
-        rating: 0,
-        inventoryStatus: 'INSTOCK',
+        session: '',
+        created: '',
+        deployed: '',
+        lat: '',
+        lon: '',
+        comment: '',
     }
 
     const [sensors, setSensors] = useState(null)
@@ -46,12 +45,13 @@ const FleetManager = () => {
     const [globalFilter, setGlobalFilter] = useState('')
     const toast = useRef<Toast>(null)
     const dt = useRef<DataTable<any>>(null)
-    const { data, isLoading } = useApi({ endpoint: 'fleet' })
+    const {data, isLoading} = useApi({endpoint: 'fleet/deployments'})
 
     useEffect(() => {
         // FleetService.getFleet().then(data => console.log(data))
         // FleetService.getSensors().then(data => setSensors(data as any))
-    }, [])
+        setSensors(data)
+    }, [data])
 
     // const formatCurrency = (value: number) => {
     //     return value.toLocaleString('en-US', {
@@ -84,7 +84,7 @@ const FleetManager = () => {
 
         if (sensor.name.trim()) {
             let _sensors = [...(sensors as any)]
-            let _sensor = { ...sensor }
+            let _sensor = {...sensor}
             if (sensor.id) {
                 const index = findIndexById(sensor.id)
 
@@ -114,7 +114,7 @@ const FleetManager = () => {
     }
 
     const editSensor = (sensor: any) => {
-        setSensor({ ...sensor })
+        setSensor({...sensor})
         setSensorDialog(true)
     }
 
@@ -179,14 +179,14 @@ const FleetManager = () => {
     }
 
     const onCategoryChange = (e: RadioButtonChangeEvent) => {
-        let _sensor = { ...sensor }
+        let _sensor = {...sensor}
         _sensor['category'] = e.value
         setSensor(_sensor)
     }
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: string) => {
         const val = (e.target && e.target.value) || ''
-        let _sensor: any = { ...sensor }
+        let _sensor: any = {...sensor}
         _sensor[`${name}`] = val
 
         setSensor(_sensor)
@@ -194,7 +194,7 @@ const FleetManager = () => {
 
     const onInputNumberChange = (e: InputNumberValueChangeEvent, name: string) => {
         const val = e.value || 0
-        let _sensor: any = { ...sensor }
+        let _sensor: any = {...sensor}
         _sensor[`${name}`] = val
 
         setSensor(_sensor)
@@ -345,7 +345,7 @@ const FleetManager = () => {
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
             <h5 className="m-0">Manage Sensors</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
-                <i className="pi pi-search" />
+                <i className="pi pi-search"/>
                 <InputText
                     type="search"
                     onInput={e => setGlobalFilter(e.currentTarget.value)}
@@ -410,11 +410,11 @@ const FleetManager = () => {
                 <div className="card">
                     {isLoading ? (
                         <div className={'flex items-center'}>
-                            <ProgressSpinner />
+                            <ProgressSpinner/>
                         </div>
                     ) : (
                         <>
-                            <Toast ref={toast} />
+                            <Toast ref={toast}/>
                             <Toolbar
                                 className="mb-4"
                                 left={leftToolbarTemplate}
@@ -439,38 +439,43 @@ const FleetManager = () => {
                                 responsiveLayout="scroll">
                                 <Column
                                     selectionMode="multiple"
-                                    headerStyle={{ width: '4rem' }}></Column>
+                                    headerStyle={{width: '4rem'}}></Column>
                                 <Column
-                                    field="code"
-                                    header="Code"
+                                    field="session"
+                                    header="Session"
                                     sortable
-                                    body={codeBodyTemplate}
-                                    headerStyle={{ minWidth: '15rem' }}></Column>
+                                    // body={codeBodyTemplate}
+                                    headerStyle={{minWidth: '6rem'}}></Column>
                                 <Column
                                     field="name"
                                     header="Name"
                                     sortable
                                     body={nameBodyTemplate}
-                                    headerStyle={{ minWidth: '15rem' }}></Column>
+                                    headerStyle={{minWidth: '5rem'}}></Column>
                                 <Column
-                                    field="rating"
-                                    header="Reviews"
-                                    body={ratingBodyTemplate}
+                                    field="lat"
+                                    header="Latitude"
+                                    // body={ratingBodyTemplate}
                                     sortable></Column>
                                 <Column
-                                    field="inventoryStatus"
-                                    header="Status"
-                                    body={statusBodyTemplate}
+                                    field="lon"
+                                    header="Longitude"
+                                    // body={ratingBodyTemplate}
+                                    sortable></Column>
+                                <Column
+                                    field="comment"
+                                    header="Comment"
+                                    // body={statusBodyTemplate}
                                     sortable
-                                    headerStyle={{ minWidth: '10rem' }}></Column>
+                                    headerStyle={{minWidth: '10rem'}}></Column>
                                 <Column
                                     body={actionBodyTemplate}
-                                    headerStyle={{ minWidth: '10rem' }}></Column>
+                                    headerStyle={{minWidth: '10rem'}}></Column>
                             </DataTable>
 
                             <Dialog
                                 visible={sensorDialog}
-                                style={{ width: '450px' }}
+                                style={{width: '450px'}}
                                 header="Sensor Details"
                                 modal
                                 className="p-fluid"
@@ -496,7 +501,8 @@ const FleetManager = () => {
                                             'p-invalid': submitted && !sensor.name,
                                         })}
                                     />
-                                    {submitted && !sensor.name && <small className="p-invalid">Name is required.</small>}
+                                    {submitted && !sensor.name &&
+                                        <small className="p-invalid">Name is required.</small>}
                                 </div>
                                 <div className="field">
                                     <label htmlFor="description">Description</label>
@@ -581,7 +587,7 @@ const FleetManager = () => {
 
                             <Dialog
                                 visible={deleteSensorDialog}
-                                style={{ width: '450px' }}
+                                style={{width: '450px'}}
                                 header="Confirm"
                                 modal
                                 footer={deleteSensorDialogFooter}
@@ -589,7 +595,7 @@ const FleetManager = () => {
                                 <div className="flex align-items-center justify-content-center">
                                     <i
                                         className="pi pi-exclamation-triangle mr-3"
-                                        style={{ fontSize: '2rem' }}
+                                        style={{fontSize: '2rem'}}
                                     />
                                     {sensor && (
                                         <span>
@@ -601,7 +607,7 @@ const FleetManager = () => {
 
                             <Dialog
                                 visible={deleteSensorsDialog}
-                                style={{ width: '450px' }}
+                                style={{width: '450px'}}
                                 header="Confirm"
                                 modal
                                 footer={deleteSensorsDialogFooter}
@@ -609,7 +615,7 @@ const FleetManager = () => {
                                 <div className="flex align-items-center justify-content-center">
                                     <i
                                         className="pi pi-exclamation-triangle mr-3"
-                                        style={{ fontSize: '2rem' }}
+                                        style={{fontSize: '2rem'}}
                                     />
                                     {sensor && <span>Are you sure you want to delete the selected sensors?</span>}
                                 </div>
