@@ -14,11 +14,21 @@ import {Toast} from 'primereact/toast'
 import {Toolbar} from 'primereact/toolbar'
 import {classNames} from 'primereact/utils'
 import React, {useEffect, useRef, useState} from 'react'
+import {
+    codeBodyTemplate,
+    nameBodyTemplate,
+    imageBodyTemplate,
+    priceBodyTemplate,
+    categoryBodyTemplate,
+    ratingBodyTemplate,
+    statusBodyTemplate,
+} from '@/components/tables/fleetTemplates'
 // import { FleetService } from '@/demo/service/FleetService'
 import {Demo} from '@/types/demo'
 import {formatCurrency} from '@/lib/utils'
 import {useApi} from '@/hooks/useApi'
 import {ProgressSpinner} from 'primereact/progressspinner'
+import fleetTemplates from "@/components/tables/fleetTemplates";
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
 const FleetManager = () => {
@@ -45,12 +55,13 @@ const FleetManager = () => {
     const [globalFilter, setGlobalFilter] = useState('')
     const toast = useRef<Toast>(null)
     const dt = useRef<DataTable<any>>(null)
-    const {data, isLoading} = useApi({endpoint: 'fleet/deployments'})
-
+    const {data, isLoading} = useApi({endpoint: 'fleet'})
     useEffect(() => {
         // FleetService.getFleet().then(data => console.log(data))
         // FleetService.getSensors().then(data => setSensors(data as any))
-        setSensors(data)
+        // if (data.length > 0) {
+        setSensors(data);
+        // }
     }, [data])
 
     // const formatCurrency = (value: number) => {
@@ -249,82 +260,11 @@ const FleetManager = () => {
         )
     }
 
-    const codeBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Code</span>
-                {rowData.code}
-            </>
-        )
-    }
-
-    const nameBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Name</span>
-                {rowData.name}
-            </>
-        )
-    }
-
-    const imageBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Image</span>
-                <img
-                    src={`/demo/images/sensor/${rowData.image}`}
-                    alt={rowData.image}
-                    className="shadow-2"
-                    width="100"
-                />
-            </>
-        )
-    }
-
-    const priceBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Price</span>
-                {formatCurrency(rowData.price as number)}
-            </>
-        )
-    }
-
-    const categoryBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Category</span>
-                {rowData.category}
-            </>
-        )
-    }
-
-    const ratingBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Reviews</span>
-                <Rating
-                    value={rowData.rating}
-                    readOnly
-                    cancel={false}
-                />
-            </>
-        )
-    }
-
-    const statusBodyTemplate = (rowData: any) => {
-        return (
-            <>
-                <span className="p-column-title">Status</span>
-                <span className={`sensor-badge status-${rowData.inventoryStatus?.toLowerCase()}`}>{rowData.inventoryStatus}</span>
-            </>
-        )
-    }
-
     const actionBodyTemplate = (rowData: any) => {
         return (
             <>
                 <Button
+                    size="small"
                     icon="pi pi-pencil"
                     rounded
                     severity="success"
@@ -332,14 +272,19 @@ const FleetManager = () => {
                     onClick={() => editSensor(rowData)}
                 />
                 <Button
-                    icon="pi pi-trash"
+                    icon="pi pi-map-marker"
                     rounded
-                    severity="warning"
+                    severity="info"
                     onClick={() => confirmDeleteSensor(rowData)}
                 />
             </>
         )
     }
+
+    const sessionBodyTemplate = (rowData: any) => {
+        return rowData.sessions.length
+    }
+
 
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
@@ -441,30 +386,31 @@ const FleetManager = () => {
                                     selectionMode="multiple"
                                     headerStyle={{width: '4rem'}}></Column>
                                 <Column
-                                    field="session"
-                                    header="Session"
+                                    // field="fleet"
+                                    header="Fleet ID"
                                     sortable
-                                    // body={codeBodyTemplate}
+                                    body={(rowData) => rowData.uuid.split('-')[4]}
                                     headerStyle={{minWidth: '6rem'}}></Column>
                                 <Column
-                                    field="name"
-                                    header="Name"
+                                    field="customer.name"
+                                    header="Customer"
                                     sortable
-                                    body={nameBodyTemplate}
+                                    // body={nameBodyTemplate}
                                     headerStyle={{minWidth: '5rem'}}></Column>
                                 <Column
-                                    field="lat"
-                                    header="Latitude"
+                                    field="customer.type.name"
+                                    header="Type"
                                     // body={ratingBodyTemplate}
                                     sortable></Column>
                                 <Column
-                                    field="lon"
-                                    header="Longitude"
+                                    field="customer.level.name"
+                                    header="Level"
                                     // body={ratingBodyTemplate}
                                     sortable></Column>
                                 <Column
-                                    field="comment"
-                                    header="Comment"
+                                    // field=
+                                    body={sessionBodyTemplate}
+                                    header="Sessions"
                                     // body={statusBodyTemplate}
                                     sortable
                                     headerStyle={{minWidth: '10rem'}}></Column>
