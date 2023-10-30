@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react'
+import React, {ReactNode} from 'react'
 
-import { IUseAuth, IApiRequest, User } from './auth'
+import {IUseAuth, IApiRequest, User} from './auth'
 
 import {
     Page,
@@ -27,13 +27,27 @@ import {
     AppMenuItem,
 } from './layout'
 
-import { Demo, LayoutType, SortOrderType, CustomEvent, ChartDataState, ChartOptionsState, AppMailSidebarItem, AppMailReplyProps, AppMailProps } from './demo'
+import {
+    Demo,
+    LayoutType,
+    SortOrderType,
+    CustomEvent,
+    ChartDataState,
+    ChartOptionsState,
+    AppMailSidebarItem,
+    AppMailReplyProps,
+    AppMailProps
+} from './demo'
+
+import {Models} from './models'
 
 type ChildContainerProps = {
     children: ReactNode
 }
 
 export type {
+    // Models
+    Models,
     // Auth
     IUseAuth,
     IApiRequest,

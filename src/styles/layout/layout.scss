@@ -9,3 +9,22 @@
 @import "responsive";
 @import "utils";
 @import "typography";
+
+.p-button.p-button-icon-only.p-button-rounded {
+  border-radius: 50%;
+  height: 2rem !important;
+  width: 2rem !important;
+}
+
+.p-datatable .p-datatable-header {
+  border: 1px solid #dee2e6 !important;
+}
+
+.p-datatable .p-datatable-wrapper .p-datatable-table .p-datatable-thead > tr > th {
+  border-width: 0 0 1px 1px;
+
+  &:last-child {
+    border-width: 0 1px 1px 0;
+
+  }
+}

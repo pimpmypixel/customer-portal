@@ -22,4 +22,5 @@ export interface User {
     must_verify_email?: boolean // this is custom attribute
     created_at?: string
     updated_at?: string
+    menu?: []
 }

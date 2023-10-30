@@ -13,7 +13,7 @@ import { Rating } from 'primereact/rating';
 import { Toast } from 'primereact/toast';
 import { Toolbar } from 'primereact/toolbar';
 import { classNames } from 'primereact/utils';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, FormEventHandler } from 'react'
 import { ProductService } from '../../../../demo/service/ProductService';
 import { Demo } from '../../../../types/types';
 
@@ -322,6 +322,7 @@ const Crud = () => {
                     <Toolbar className="mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
 
                     <DataTable
+                        size={'small'}
                         ref={dt}
                         value={products}
                         selection={selectedProducts}

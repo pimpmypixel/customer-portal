@@ -20,7 +20,7 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     const menu = useRef<Menu>(null)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const { user, logout } = useAuth({ middleware: 'guest' })
+    const { user, logout } = useAuth({ middleware: 'auth' })
 
     const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
         menu.current?.toggle(event)
@@ -46,7 +46,8 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
                 href="/"
                 className="layout-topbar-logo">
                 <img
-                    src={`/layout/images/splash_logo.png`}
+                    width={'180em'}
+                    src={`/layout/images/FaunaPhotonics_Letters.svg`}
                     alt="logo"
                 />
                 {/*<img src={`/layout/images/logo-${layoutConfig.colorScheme !== 'light' ? 'white' : 'dark'}.svg`} width="47.22px" height={'35px'} alt="logo" />*/}
@@ -72,28 +73,12 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
             <div
                 ref={topbarmenuRef}
                 className={classNames('layout-topbar-menu', { 'layout-topbar-menu-mobile-active': layoutState.profileSidebarVisible })}>
-                {/*
-                 */}
-                <button
-                    type="button"
-                    className="p-link layout-topbar-button">
-                    <i className="pi pi-calendar"></i>
-                    <span>Calendar</span>
-                </button>
                 <button
                     type="button"
                     className="p-link layout-topbar-button">
                     <i className="pi pi-user"></i>
                     <span>Profile</span>
                 </button>
-                <Link href="/documentation">
-                    <button
-                        type="button"
-                        className="p-link layout-topbar-button">
-                        <i className="pi pi-cog"></i>
-                        <span>Settings</span>
-                    </button>
-                </Link>
                 <button
                     onClick={logout}
                     type="button"
@@ -101,30 +86,6 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
                     <i className="pi pi-sign-out text-gray-400"></i>
                     <span>Log out ({name})</span>
                 </button>
-                {/*
-                <>
-                    <Menu
-                        ref={menu}
-                        model={overlayMenuItems}
-                        popup
-                    />
-                    <Button
-                        type="button"
-                        // label="Options"
-                        icon="pi pi-angle-down"
-                        onClick={toggleMenu}
-                        style={{ width: 'auto' }}
-                        text
-                    />
-                </>
-                <Dropdown
-                    value={selectedCity}
-                    // onChange={e => setSelectedCity(e.value)}
-                    options={cities}
-                    optionLabel="name"
-                    // placeholder={<i className="pi pi-user"></i>}
-                    className="topmenu-dropdown w-full md:w-4rem"
-                />*/}
             </div>
         </div>
     )

@@ -8,15 +8,15 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
         ripple: false,
         inputStyle: 'outlined',
         menuMode: 'static',
-        colorScheme: 'light',
-        theme: 'lara-light-indigo',
-        scale: 14,
+        colorScheme: 'dim',
+        theme: 'fauna',
+        scale: 13,
     })
 
     const [layoutState, setLayoutState] = useState<LayoutState>({
         staticMenuDesktopInactive: false,
         overlayMenuActive: false,
-        profileSidebarVisible: false,
+        profileSidebarVisible: true,
         configSidebarVisible: false,
         staticMenuMobileActive: false,
         menuHoverActive: false,

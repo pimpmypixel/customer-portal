@@ -26,6 +26,7 @@ interface IUseApi {
 // }
 
 export const useApi = ({ endpoint }: IUseApi) => {
+
     const { data, isLoading, mutate } = useSWR<any>(
         process.env.NEXT_PUBLIC_BACKEND_URL + '/api/' + endpoint,
         () =>

@@ -14,21 +14,21 @@ import {Toast} from 'primereact/toast'
 import {Toolbar} from 'primereact/toolbar'
 import {classNames} from 'primereact/utils'
 import React, {useEffect, useRef, useState} from 'react'
-import {
-    codeBodyTemplate,
-    nameBodyTemplate,
-    imageBodyTemplate,
-    priceBodyTemplate,
-    categoryBodyTemplate,
-    ratingBodyTemplate,
-    statusBodyTemplate,
-} from '@/components/tables/fleetTemplates'
+// import {
+//     codeBodyTemplate,
+//     nameBodyTemplate,
+//     imageBodyTemplate,
+//     priceBodyTemplate,
+//     categoryBodyTemplate,
+//     ratingBodyTemplate,
+//     statusBodyTemplate,
+// } from '@/components/tables/fleetTemplates'
+
 // import { FleetService } from '@/demo/service/FleetService'
 import {Demo} from '@/types/demo'
 import {formatCurrency} from '@/lib/utils'
 import {useApi} from '@/hooks/useApi'
 import {ProgressSpinner} from 'primereact/progressspinner'
-import fleetTemplates from "@/components/tables/fleetTemplates";
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
 const FleetManager = () => {
@@ -42,6 +42,12 @@ const FleetManager = () => {
         lat: '',
         lon: '',
         comment: '',
+        image: undefined,
+        description: undefined,
+        category: undefined,
+        price: undefined,
+        quantity: undefined
+
     }
 
     const [sensors, setSensors] = useState(null)
@@ -108,7 +114,7 @@ const FleetManager = () => {
                 })
             } else {
                 _sensor.id = createId()
-                _sensor.image = 'sensor-placeholder.svg'
+                // _sensor.image = 'sensor-placeholder.svg'
                 _sensors.push(_sensor)
                 toast.current?.show({
                     severity: 'success',
@@ -191,6 +197,7 @@ const FleetManager = () => {
 
     const onCategoryChange = (e: RadioButtonChangeEvent) => {
         let _sensor = {...sensor}
+        // @ts-ignore
         _sensor['category'] = e.value
         setSensor(_sensor)
     }
