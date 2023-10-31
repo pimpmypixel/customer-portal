@@ -12,15 +12,21 @@ export interface IApiRequest {
     [key: string]: any
 }
 
+export interface Session {
+    user?: User
+    menu?: []
+}
+
 export interface User {
-    id?: number
-    name?: string
+    uuid: string
+    // id?: number
+    // name?: string
     firstname?: string
     lastname?: string
+    language?: string
     email?: string
     email_verified_at?: string
     must_verify_email?: boolean // this is custom attribute
     created_at?: string
     updated_at?: string
-    menu?: []
 }

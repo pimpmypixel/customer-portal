@@ -2,28 +2,28 @@ import useSWR from 'swr'
 import axios, { csrf } from '@/lib/axios'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { IUseAuth, User } from '@/types/types'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import { IUseAuth, Session } from '@/types/types'
+import useStorage from '@/hooks/useStorage'
 
 export const useAuth = ({ middleware, redirectIfAuthenticated }: IUseAuth) => {
     const router = useRouter()
-    const [customer, setCustomer] = useLocalStorage('customer', null)
-    const [menu, setMenu] = useLocalStorage('menu', null)
-    const [userObject, setUserObject] = useLocalStorage('userObject', null)
+    // const [customer, setCustomer] = useStorage('customer', null)
+    // const [menu, setMenu] = useStorage('menu', null)
+    // const [userObject, setUserObject] = useStorage('userObject', null)
 
     const {
-        data: user,
+        data: session,
         error,
         mutate,
-    } = useSWR<User>('/api/user', () =>
+    } = useSWR<Session>('session', () =>
         axios
             .get('/api/user')
             .then((res: { data: any }) => {
-                setCustomer(res.data.customer)
-                setMenu(res.data.menu)
-                delete res.data.customer
-                delete res.data.menu
-                setUserObject(res.data)
+                // setCustomer(res.data.customer)
+                // setMenu(res.data.menu)
+                // delete res.data.customer
+                // delete res.data.menu
+                // setUserObject(res.data)
                 return res.data
             })
             .catch(
@@ -52,11 +52,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: IUseAuth) => {
         if (middleware === 'auth' && error) {
             logout()
         }
-    }, [user, error])
+    }, [session, error])
     // }, [user, error, logout, redirectIfAuthenticated, middleware, router])
 
     return {
-        user,
+        session,
         logout,
     }
 }

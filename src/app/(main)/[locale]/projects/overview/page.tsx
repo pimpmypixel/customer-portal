@@ -12,11 +12,11 @@ import React, { useEffect, useRef, useState, FormEventHandler } from 'react'
 import { Models } from '@/types/types'
 import { useApi } from '@/hooks/useApi'
 import { MultiSelect } from 'primereact/multiselect'
+// import { MdEditor } from 'md-editor-rt'
 import axios, { csrf } from '@/lib/axios'
 import 'md-editor-rt/lib/style.css'
 import { ProgressSpinner } from 'primereact/progressspinner'
 import styles from './index.module.scss'
-// import { MdEditor } from 'md-editor-rt'
 
 interface InputValue {
     name: string
@@ -78,6 +78,12 @@ const News = () => {
     const { data, isLoading } = useApi({ endpoint: 'news' })
 
     const [multiselectValue, setMultiselectValue] = useState(null)
+    // const [status, setStatus] = useState('')
+    // const [title, setTitle] = useState('')
+    // const [url, setUrl] = useState('')
+    // const [imageUrl, setImageUrl] = useState('')
+    // const [tags, setTags] = useState([])
+    // const [text, setText] = useState('# Fresh news2 in the biodiversity space')
 
     const now = new Date()
 
@@ -226,29 +232,6 @@ const News = () => {
         // })
     }
 
-    /*
-    const onCategoryChange = (e: RadioButtonChangeEvent) => {
-        let _newsitem = { ...NewsItem }
-        _newsitem['category'] = e.value
-        setNewsItem(_newsitem)
-    }
-
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, name: string) => {
-        const val = (e.target && e.target.value) || ''
-        let _newsitem = { ...NewsItem }
-        _newsitem[`${name}`] = val
-
-        setNewsItem(_newsitem)
-    }
-
-    const onInputNumberChange = (e: InputNumberValueChangeEvent, name: string) => {
-        const val = e.value || 0
-        let _newsitem = { ...NewsItem }
-        _newsitem[`${name}`] = val
-
-        setNewsItem(_newsitem)
-    }*/
-
     const actionBodyTemplate = (rowData: Models.NewsItem) => {
         return (
             <>
@@ -273,19 +256,20 @@ const News = () => {
 
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Manage News Items</h5>
+            <h5 className="m-0">Manage Projects</h5>
             <div className="p-inputgroup flex w-20rem ">
                 <Button
+                    // className="bg-white"
+                    // outlined
+                    // label="New"
                     icon="pi pi-plus"
                     severity="success"
                     onClick={openNew}
                 />
                 <Button
-                    icon="pi pi-refresh"
-                    severity="info"
-                    onClick={confirmDeleteSelected}
-                />
-                <Button
+                    // outlined={!selectedNewsItems || !(selectedNewsItems as any).length}
+                    // className={!selectedNewsItems || !(selectedNewsItems as any) ? 'bg-white' : ''}
+                    // label="Delete"
                     icon="pi pi-trash"
                     severity="danger"
                     onClick={confirmDeleteSelected}

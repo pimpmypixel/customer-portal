@@ -1,23 +1,24 @@
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/no-sync-scripts */
 'use client'
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import { LayoutContext } from '@/layout/context/layoutcontext'
-import { Demo } from '@/types/demo'
+import React from 'react'
 import { useAuth } from '@/hooks/useAuth'
 
-const Dashboard = () => {
-    const { user, logout } = useAuth({ middleware: 'auth' })
+const Index = () => {
+    const { session, logout } = useAuth({ middleware: 'auth' })
     return (
-        <div className="grid">
-            <div className="col-12 lg:col-6 xl:col-3">
-                <div className="card mb-0">
-                    <div className="flex justify-content-between">
-                        <span className="block text-500 font-medium">Logged in: {user && user.firstname}</span>
+        <>
+            <div className="grid">
+                <div className="col-12">
+                    <div className="card docs">
+                        <h4>Current Version</h4>
+                        <p>Next v14, React v18 with PrimeReact v9</p>
+
+                        <h5>Logged in: {session?.user.firstname}</h5>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export default Dashboard
+export default Index

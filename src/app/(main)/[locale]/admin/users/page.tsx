@@ -12,11 +12,11 @@ import React, { useEffect, useRef, useState, FormEventHandler } from 'react'
 import { Models } from '@/types/types'
 import { useApi } from '@/hooks/useApi'
 import { MultiSelect } from 'primereact/multiselect'
+// import { MdEditor } from 'md-editor-rt'
 import axios, { csrf } from '@/lib/axios'
 import 'md-editor-rt/lib/style.css'
 import { ProgressSpinner } from 'primereact/progressspinner'
 import styles from './index.module.scss'
-// import { MdEditor } from 'md-editor-rt'
 
 interface InputValue {
     name: string
@@ -28,7 +28,7 @@ interface DropdownItem {
     code: string
 }
 
-const News = () => {
+const Users = () => {
     let emptyNewsItem: Models.News = {
         id: '',
         editor: '',
@@ -75,7 +75,7 @@ const News = () => {
     const [globalFilter, setGlobalFilter] = useState('')
     const toast = useRef<Toast>(null)
     const dt = useRef<DataTable<any>>(null)
-    const { data, isLoading } = useApi({ endpoint: 'news' })
+    const { data, isLoading } = useApi({ endpoint: 'users' })
 
     const [multiselectValue, setMultiselectValue] = useState(null)
 
@@ -276,16 +276,17 @@ const News = () => {
             <h5 className="m-0">Manage News Items</h5>
             <div className="p-inputgroup flex w-20rem ">
                 <Button
+                    // className="bg-white"
+                    // outlined
+                    // label="New"
                     icon="pi pi-plus"
                     severity="success"
                     onClick={openNew}
                 />
                 <Button
-                    icon="pi pi-refresh"
-                    severity="info"
-                    onClick={confirmDeleteSelected}
-                />
-                <Button
+                    // outlined={!selectedNewsItems || !(selectedNewsItems as any).length}
+                    // className={!selectedNewsItems || !(selectedNewsItems as any) ? 'bg-white' : ''}
+                    // label="Delete"
                     icon="pi pi-trash"
                     severity="danger"
                     onClick={confirmDeleteSelected}
@@ -586,7 +587,7 @@ const News = () => {
     )
 }
 
-export default News
+export default Users
 
 // export async function generateStaticParams() {
 //     return [

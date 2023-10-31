@@ -7,7 +7,8 @@ import { AppTopbarRef } from '../types/types'
 import { Menu } from 'primereact/menu'
 import { LayoutContext } from './context/layoutcontext'
 import { useAuth } from '@/hooks/useAuth'
-import { User } from '../types/types'
+import { Badge } from 'primereact/badge'
+// import { User } from '@/types/types'
 // import { Dropdown } from 'primereact/dropdown'
 // import './topmenu.css'
 // import { Button } from 'primereact/button'
@@ -19,20 +20,13 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
     const topbarmenubuttonRef = useRef(null)
     const menu = useRef<Menu>(null)
     const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const { user, logout } = useAuth({ middleware: 'auth' })
-
-    const toggleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-        menu.current?.toggle(event)
-    }
+    const { session, logout } = useAuth({ middleware: 'auth' })
 
     useEffect(() => {
-        if (user !== undefined) {
-            setName(user.firstname + ' ' + user.lastname)
-            // @ts-ignore
-            setEmail(user.email)
+        if (session !== undefined) {
+            setName(session.user.firstname + ' ' + session.user.lastname)
         }
-    }, [user])
+    }, [session])
 
     useImperativeHandle(ref, () => ({
         menubutton: menubuttonRef.current,
@@ -73,12 +67,18 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
             <div
                 ref={topbarmenuRef}
                 className={classNames('layout-topbar-menu', { 'layout-topbar-menu-mobile-active': layoutState.profileSidebarVisible })}>
-                <button
-                    type="button"
-                    className="p-link layout-topbar-button">
-                    <i className="pi pi-user"></i>
-                    <span>Profile</span>
-                </button>
+                <i
+                    onClick={() => alert('hej')}
+                    className="pi pi-user mr-2 mt-3 p-text-secondary p-overlay-badge"
+                    style={{ fontSize: '1.5rem' }}>
+                    <Badge value="2"></Badge>
+                </i>
+                {/*<button*/}
+                {/*    type="button"*/}
+                {/*    className="p-link layout-topbar-button">*/}
+                {/*    <i className="pi pi-user"></i>*/}
+                {/*    <span>Profile</span>*/}
+                {/*</button>*/}
                 <button
                     onClick={logout}
                     type="button"
