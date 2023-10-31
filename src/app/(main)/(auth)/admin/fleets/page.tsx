@@ -29,7 +29,6 @@ import { Demo } from '@/types/demo'
 import { formatCurrency } from '@/lib/utils'
 import { useApi } from '@/hooks/useApi'
 import { ProgressSpinner } from 'primereact/progressspinner'
-import { Tag } from 'primereact/tag'
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
 const FleetManager = () => {
@@ -294,7 +293,7 @@ const FleetManager = () => {
 
     const header = (
         <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-            <h5 className="m-0">Manage Fleet</h5>
+            <h5 className="m-0">Manage Fleets</h5>
             <span className="block mt-2 md:mt-0 p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText
@@ -393,14 +392,9 @@ const FleetManager = () => {
                                     headerStyle={{ width: '4rem' }}></Column>
                                 <Column
                                     // field="fleet"
-                                    header="Name"
+                                    header="Fleet ID"
                                     sortable
-                                    body={rowData => (
-                                        <Tag
-                                            severity="info"
-                                            value={rowData.name}
-                                            rounded></Tag>
-                                    )}
+                                    body={rowData => rowData.uuid.split('-')[4]}
                                     headerStyle={{ minWidth: '6rem' }}></Column>
                                 <Column
                                     field="customer.name"

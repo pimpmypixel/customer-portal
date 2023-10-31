@@ -26,10 +26,13 @@ const MenuDemo = ({ children }: any) => {
         const currentPath = paths[paths.length - 1]
 
         switch (currentPath) {
-            case 'seat':
+            case 'use-case':
+                setActiveIndex(0)
+                break
+            case 'project':
                 setActiveIndex(1)
                 break
-            case 'payment':
+            case 'details':
                 setActiveIndex(2)
                 break
             case 'confirmation':
@@ -45,12 +48,12 @@ const MenuDemo = ({ children }: any) => {
     }, [checkActiveIndex])
 
     const wizardItems = [
-        { label: 'Personal', command: () => router.push('/uikit/menu') },
-        { label: 'Seat', command: () => router.push('/uikit/menu/seat') },
-        { label: 'Payment', command: () => router.push('/uikit/menu/payment') },
+        { label: 'Use case', command: () => router.push('/fleet/install/use-case') },
+        { label: 'Project', command: () => router.push('/fleet/install/project') },
+        { label: 'Details', command: () => router.push('/fleet/install/details') },
         {
             label: 'Confirmation',
-            command: () => router.push('/uikit/menu/confirmation'),
+            command: () => router.push('/fleet/install/confirmation'),
         },
     ]
 
@@ -67,10 +70,10 @@ const MenuDemo = ({ children }: any) => {
                         onSelect={e => setActiveIndex(e.index)}
                         readOnly={false}
                     />
-                    {pathname === '/uikit/menu' ? (
+                    {pathname === '/fleet/install' ? (
                         <div className="flex align-items-center py-5 px-3">
                             <i className="pi pi-fw pi-user mr-2 text-2xl" />
-                            <p className="m-0 text-lg">Personal Component Content via Child Route</p>
+                            <p className="m-0 text-lg">Intro</p>
                         </div>
                     ) : (
                         <>{children}</>

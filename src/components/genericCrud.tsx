@@ -31,8 +31,7 @@ import { useApi } from '@/hooks/useApi'
 import { ProgressSpinner } from 'primereact/progressspinner'
 import { Tag } from 'primereact/tag'
 
-/* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
-const FleetManager = () => {
+const CrudManager = () => {
     // let emptySensor = {
     let emptySensor = {
         id: '',
@@ -584,4 +583,4 @@ const FleetManager = () => {
     )
 }
 
-export default FleetManager
+export default CrudManager
