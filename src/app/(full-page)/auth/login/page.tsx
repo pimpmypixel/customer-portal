@@ -5,27 +5,31 @@ import React, { useContext, useRef, useEffect } from 'react'
 import { LayoutContext } from '../../../../layout/context/layoutcontext'
 import { classNames } from 'primereact/utils'
 import { Card } from 'primereact/card'
+import { getCookie } from 'cookies-next'
 import OAuthButton from '../../../../components/auth/OAuthButton'
 import { Toast } from 'primereact/toast'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { capitalize } from '@/lib/utils'
 
 const LoginPage = () => {
     const { layoutConfig } = useContext(LayoutContext)
     const toast = useRef<Toast>(null)
+    const firstname = getCookie('firstname') || null
 
     // const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' })
-    const containerClassName = classNames('surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' })
+    const containerClassName = classNames('bg-image flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden', { 'p-input-filled': layoutConfig.inputStyle === 'filled' })
 
     const searchParams = useSearchParams()
     useEffect(() => {
-        !toast.current.length &&
-            toast.current.show({
+        if (toast.current != null && searchParams.has('logout')) {
+            toast.current.replace({
                 severity: 'success',
                 summary: 'Successful',
                 detail: 'Successfully logged out',
                 life: 3000,
             })
-    }, [searchParams])
+        }
+    }, [searchParams, toast])
 
     return (
         <div className={containerClassName}>
@@ -38,7 +42,7 @@ const LoginPage = () => {
                         alt="logo"
                         className={'mb-5'}
                     />
-                    <div className="text-900 text-l font-medium mb-3">Welcome, Caroline!</div>
+                    <div className="text-900 text-l font-medium mb-3">Welcome{firstname && <> back, {capitalize(firstname)}</>}!</div>
                     <span className="text-600 font-xs mb-4">Sign in to continue</span>
                 </div>
                 <OAuthButton

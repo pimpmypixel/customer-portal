@@ -9,22 +9,25 @@ import { AppMenuItem } from '../types/types'
 import { useApi } from '@/hooks/useApi'
 import { useAuth } from '@/hooks/useAuth'
 import useStorage from '@/hooks/useStorage'
+import { ProgressSpinner } from 'primereact/progressspinner'
 
 const AppMenu = () => {
-    const [menu, setMenu] = useState(null)
+    // const [menu, setMenu] = useState(null)
     const { session, logout } = useAuth({ middleware: 'auth' })
 
-    useEffect(() => {
-        if (session?.menu?.length) {
-            setMenu(session.menu as any)
-        }
-    }, [session])
+    // useEffect(() => {
+    //     if (session?.menu?.length) {
+    //         setMenu(session.menu as any)
+    //     }
+    // }, [session])
 
     return (
         <MenuProvider>
-            {menu && (
-                <ul className="layout-menu">
-                    {menu.map((item: AppMenuItem | undefined, i: React.Key | number) => {
+            <ul className="layout-menu">
+                {!session?.menu ? (
+                    <ProgressSpinner />
+                ) : (
+                    session?.menu?.map((item: AppMenuItem | undefined, i: number) => {
                         return !item?.seperator ? (
                             <AppMenuitem
                                 item={item}
@@ -35,9 +38,9 @@ const AppMenu = () => {
                         ) : (
                             <li className="menu-separator"></li>
                         )
-                    })}
-                </ul>
-            )}
+                    })
+                )}
+            </ul>
         </MenuProvider>
     )
 }

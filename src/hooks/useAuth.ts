@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { IUseAuth, Session } from '@/types/types'
 import useStorage from '@/hooks/useStorage'
+import { getCookie, setCookie } from 'cookies-next'
 
 export const useAuth = ({ middleware, redirectIfAuthenticated }: IUseAuth) => {
     const router = useRouter()
@@ -19,6 +20,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: IUseAuth) => {
         axios
             .get('/api/user')
             .then((res: { data: any }) => {
+                setCookie('firstname', res.data.user.firstname)
                 // setCustomer(res.data.customer)
                 // setMenu(res.data.menu)
                 // delete res.data.customer
@@ -42,11 +44,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated }: IUseAuth) => {
         if (!error) {
             await axios.post('/auth/logout').then(() => mutate())
         }
-        window.location.pathname = '/auth/login'
+        router.push('/auth/login/?logout')
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user) {
+        if (middleware === 'guest' && redirectIfAuthenticated && session) {
             router.push(redirectIfAuthenticated)
         }
         if (middleware === 'auth' && error) {

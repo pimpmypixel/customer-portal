@@ -24,7 +24,7 @@ const AppTopbar = forwardRef<AppTopbarRef>((props, ref) => {
 
     useEffect(() => {
         if (session !== undefined) {
-            setName(session.user.firstname + ' ' + session.user.lastname)
+            setName(session?.user?.firstname + ' ' + session?.user?.lastname)
         }
     }, [session])
 

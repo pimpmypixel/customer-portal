@@ -13,7 +13,7 @@ export interface IApiRequest {
 }
 
 export interface Session {
-    user?: User
+    user?: User | undefined
     menu?: []
 }
 
