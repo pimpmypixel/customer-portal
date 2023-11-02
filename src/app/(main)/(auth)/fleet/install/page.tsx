@@ -62,7 +62,7 @@ const MenuDemo = ({ children }: any) => {
             <div className="col-12">
                 <div className="card">
                     <h4>
-                        <i className="fa-solid fa-square-plus mr-2" /> Install sensor
+                        <i className="fa-solid fa-square-plus mr-2" /> Launch Project
                     </h4>
                     <Steps
                         model={wizardItems}
